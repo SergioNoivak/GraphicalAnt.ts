@@ -12,7 +12,7 @@ A equipe terá como ferramentas as seguintes tecnologias:
 
 ## Arquitetura do projeto
 
-Proponho o modelo ´M.V.C.´ para aquitetura.
+Proponho o modelo `M.V.C.` para aquitetura.
 ```
 GraphicalAnt/
 ├── model/
