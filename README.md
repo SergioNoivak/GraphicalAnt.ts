@@ -8,7 +8,7 @@ Tal implementação possibilitará resolver problemas tipo caixeiro viajante e s
 
 A equipe terá como ferramentas as seguintes tecnologias:
 * A linguagem de programação `javascript`;
-* o framework para modelagem gráfica `d3` com ![site](https://d3js.org) de documentação e ![repositório](https://github.com/d3/d3) ;
+* o framework para modelagem gráfica `d3` com [site](https://d3js.org) de documentação e [repositório](https://github.com/d3/d3) ;
 
 ## Integrantes da equipe:
 
