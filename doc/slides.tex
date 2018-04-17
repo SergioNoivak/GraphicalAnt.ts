@@ -1,0 +1,627 @@
+\documentclass[compress]{beamer}
+\usepackage{default}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary[patterns]
+
+\usetikzlibrary{calc}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{MnSymbol}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage[Algoritmo]{algorithm}
+\usepackage[noend]{algorithmic}
+
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\newtheorem{teorema}[theorem]{\scshape Teorema}
+\newtheorem{proposicao}[theorem]{\scshape Proposição}
+\newtheorem{corolario}[theorem]{\scshape Corolário}
+\newtheorem{lema}[theorem]{\scshape Lema}
+\newtheorem{definicao}[theorem]{\scshape Definição}
+\newtheorem{conjectura}[theorem]{\scshape Conjectura}
+\newtheorem{escolio}[theorem]{\scshape Escólio}
+\newtheorem{exemplo}[theorem]{\scshape Exemplo}
+\newtheorem{exemplos}[theorem]{\scshape Exemplos}
+\newtheorem{propriedade}[theorem]{\scshape Propriedade}
+
+\renewcommand{\u}{{\bf u}}
+\renewcommand{\v}{{\bf v}}
+\renewcommand{\sin}{\operatorname{sen}}
+\renewcommand{\tan}{\operatorname{tg}}
+\providecommand{\cas}{\operatorname{cas}}
+\providecommand{\mdc}{\mathrm{mdc}}
+\providecommand{\f}{{\bf f}}
+
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+
+\providecommand{\x}{{\bf x}}
+\providecommand{\y}{{\bf y}}
+\providecommand{\w}{{\bf w}}
+\providecommand{\f}{{\bf f}}
+\providecommand{\q}{{\bf q}}
+\providecommand{\bfa}{{\bf a}}
+\providecommand{\bfb}{{\bf b}}
+\providecommand{\bfc}{{\bf c}}
+\providecommand{\bfd}{{\bf d}}
+\providecommand{\bfe}{{\bf e}}
+\providecommand{\bfs}{{\bf s}}
+\providecommand{\bfz}{{\bf z}}
+\providecommand{\zero}{{\bf 0}}
+\providecommand{\spn}{\mathrm{span}}
+\providecommand{\posto}{\mathrm{posto}}
+\providecommand{\nul}{\mathrm{nul}}
+\providecommand{\proj}{\mathrm{proj}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\sgn}{\mathrm{sgn}}
+
+\providecommand{\cov}{\mathrm{cov}}
+
+\providecommand{\dilation}{\mathcal{D}}
+\providecommand{\erosion}{\mathcal{E}}
+\providecommand{\open}{\mathcal{O}}
+\providecommand{\close}{\mathcal{C}}
+
+\newcommand*{\Bhat}{\skew{3}{\hat}{B}}
+
+\mode<presentation>
+{
+  \setbeamertemplate{background canvas}[vertical shading][bottom=white!10,top=blue!10]
+  \usetheme{Warsaw}
+  \usefonttheme[onlysmall]{structurebold}
+  
+  \setbeamertemplate{headline}{}
+  
+%   \setbeamercovered{invisible} % default
+  \setbeamercovered{ transparent, again covered={\opaqueness{25}} } % =15%
+
+}
+
+\usepackage{ifthen}
+
+\makeatletter
+\newcommand{\includecoveredgraphics}[2][]{
+    \ifthenelse{\the\beamer@coveringdepth=1}{
+        \tikz
+            \node[inner sep=0pt,outer sep=0pt,opacity=0.15]
+                {\includegraphics[#1]{#2}};
+    }{
+        \tikz
+            \node[inner sep=0pt,outer sep=0pt]
+                {\includegraphics[#1]{#2}};%
+    }
+} 
+\makeatother 
+
+\title{Otimização por Colônia de Formigas}
+\author{Sergio Novak \\ Gabriel Rezende \\ Venâncio Edwirge\\ Pedro Henrique}
+\date{Pratica de laboratório de pesquisa}
+
+
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+%% Parte 1 VENÂNCIO
+
+\begin{frame}{Introdução}
+\begin{itemize}
+\item{No geral as formigas seguem o menor caminho até a comida}
+\newline
+\item{Enquanto andam elas depositam por onde passam uma substância, o feromônio}
+\newline
+\item{As formigas tem tendência a seguir o caminho com mais feromônio}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inspiração Biológica}
+\begin{itemize}
+\item{Estigmergia}
+\newline
+\item{Comunicação indireta\\ - Um indivíduo modifica o ambiente, outro indivíduo responde à mudança}
+\newline
+\item{Acesso à informação local}
+\newline
+\item{Coordenação e cooperação em uma tarefa}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inspiração Biológica}
+\begin{itemize}
+\item{Quando não há feromônio, as formigas não seguem o mesmo caminho}
+\newline
+\item{Elas escolhem o que aparenta ser o menor caminho, e fazem o seu retorno pelo mesmo}
+\newline
+\item{O caminho que tiver maior número de feromônio, é o mais escolhido}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Inspiração Biológica}
+\begin{itemize}
+\newline
+\item{Todas as formigas então passam a utilizar o caminho com mais feromônio}
+\newline
+\item{Isso faz com que os outros fiquem inutilizados}
+\newline
+\item{O feromônio dos caminhos anteriores vai evaporar, e ele não sera mais escolhido}
+\end{itemize}
+\end{frame}
+
+%% Parte 2 VENÂNCIO 
+
+\begin{frame}{Técnica de Otimização}
+\begin{itemize}
+\item{Modelo proposto por Deneubourg}
+\newline
+\item{Um número de "formigas artificiais" é utilizado}
+\newline
+\item{Cada formiga artificial é uma execução do programa}
+\newline
+\item{Cada execução gera um solução, podendo ela ser diferente, ou não}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Técnica de Otimização}
+\begin{itemize}
+\item{Em determinado momento as soluções param de variar}
+\newline
+\item{Isso se da ao fato de que agora todas as formigas estão indo pelo mesmo caminho}
+\newline
+\item{Cada execução gera um solução, podendo ela ser diferente, ou não}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Técnica de Otimização}
+\begin{itemize}
+\item{Para a construção da solução a formiga leva em conta:\\ -Informações fixas, que indicam a conveniência para obtenção da solução\\ -A quantidade de feromônio, que indica a probabilidade de tomar determinado caminho}
+\newline
+\item{Isso se da ao fato de que agora todas as formigas estão indo pelo mesmo caminho}
+\newline
+\item{Cada execução gera um solução, podendo ela ser diferente, ou não}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Feromônio}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale = 0.8]{feromonioI}
+    \caption{Escolha do melhor caminho}
+    %\label{fig:my_label}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Feromônio}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale = 0.8]{feromonioF}
+    \caption{Escolha do melhor caminho}
+    %\label{fig:my_label}
+\end{figure}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%% PARTE 1 FIM %%%%%%%%%%
+
+
+%%%%%%%%%%%%PARTE 2 INICIO %%%%%%
+
+
+ 
+
+\begin{frame}
+\frametitle{Variações do Algoritmo}
+
+\begin{itemize}
+  \item Ant System (AS)
+  \item MAX-Min Ant System(MMAS)
+  \item Ant Colony System (ACS)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Ant System (AS)}
+
+\begin{itemize}
+  \item O primeiro algoritmo:
+\end{itemize}
+
+ A particularidade se dá que, a cada iteração há atualização de feromônio em todas as  \textit{m} formigas.
+$$
+\tau_{i j}\leftarrow(1-\rho)\cdot\tau_{i j}+\sum_{k=1}^{m} \Delta\tau_{i j}^{k}	
+$$
+
+\begin{center}
+\begin{tabular}{ c c } 
+ \hline
+ $$\tau_{i j}$$ & feromônio para a aresta $$(i,j)$$\\
+ $$\rho$$ & taxa de evaporação do feromônio  \\ 
+ $$ m $$ & número de formigas \\ 
+ \hline
+\end{tabular}
+\end{center}    
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Ant System (AS)}
+
+\begin{itemize}
+  \item O primeiro algoritmo
+\end{itemize}
+Depósito de feromônio ao final de $k$ formigas lançadas na solução parcial $N(s^p)$:
+
+$$\Delta\tau_{i j}^{k}= \left \{ \begin{matrix} Q/L_{k}, & \mbox{se }\mbox{k usou a aresta $$(i,j)$$ no percurso} \\ 0, & \mbox{caso contrário} \end{matrix} \righ.
+$$
+
+\begin{center}
+\begin{tabular}{ c| c } 
+ \hline
+ $$\Delta\tau_{i j}^{k}$$ & feromônio para depósito na aresta $$(i,j)$$\\
+ $$Q$$ & Constante relativa a quantidade de feromônio  \\ 
+ $$ L_{k} $$ & soma da Largura do caminho para a k-ésima formiga \\ 
+ $$k$$ & k-ésima formiga\\
+ \hline
+\end{tabular}
+\end{center}    
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Ant System (AS)}
+
+\begin{itemize}
+  \item O primeiro algoritmo
+\end{itemize}
+O processo de escolha é \textbf{estocástico} onde:
+
+$$p_{i j}^{k}= \left \{ \begin{matrix} \frac{\tau_{i j}^{\alpha}\cdot\eta_{i j}^{\beta}}{\sum_{c_{il \in \mathbb{N}(s^p)}}\tau_{i l}^{\alpha}\cdot\eta_{i l}^{\beta}}, & \mbox{se } c_{ij} \in \mathbb{N}(s^p) \\ 0, &\mbox{caso contrario}  \end{matrix} \righ.
+$$
+
+
+\begin{center}
+\begin{tabular}{ c| c } 
+ \hline
+ $$p_{i j}^{k}$$ & probabilidade de escolha da aresta $$(i,j)$$ para a k-ésima formiga\\
+ $$\tau_{i j}$$ & quantidade de feromônio da aresta $$(i,j)$$ \\ 
+ $$\mathbb{N}(s^p)$$ & conjunto de arestas que tem extremo $l$ não percorrido \\ 
+ $$\alpha$$ & constante de peso para o fator $$\tau_{i j}$$ \\
+ $$\beta$$ & constante de peso para o fator $$\eta_{i l}$$ \\
+ $$c_{i j}$$ & distância da aresta $$(i,j)$$\\
+$$\eta_{i j} $$ &  grandeza que representa $\frac{1}{d_ {i j}}$\\
+$$\tau_{i l}^{\alpha}\cdot\eta_{i l}^{\beta}$$ & aptidão de uma l-ésima possível escolha de uma aresta $(i,l)$\\
+ \hline
+\end{tabular}
+\end{center} 
+\end{frame}
+
+\begin{frame}
+\frametitle{ MAX-MIN Ant System (MMAS)}
+Este algoritmo propõe mudanças na atualização do feromônio($\tau_{i j}$) ao final de cada iteração:\\
+\textbf{"Apenas as formigas mais aptas tem a trilha de feromônio depositado"}
+\end{frame}
+
+\begin{frame}
+\frametitle{ MAX-MIN Ant System (MMAS)}
+
+Tal atualização é dada por:
+$$
+    \tau_{i j}\leftarrow [(1-\rho)\cdot\tau_{i j}+\sum_{k=1}^{m} \Delta\tau_{i j}^{best}]_{\tau_{min}}^{\tau_{max}}	
+$$
+
+\begin{center}
+\begin{tabular}{ c| c } 
+ \hline
+ $$\tau_{i j}$$ & feromônio para a aresta $$(i,j)$$\\
+ $$\rho$$ & taxa de evaporação do feromônio  \\ 
+ $$ m $$ & número de formigas \\ 
+ $$\Delta\tau_{ij}^{best}$$ &  melhor feromônio depositado\\
+ $$\tau_{max}$$ & limite máximo de feromônio imposto no algoritmo\\
+ $$\tau_{min}$$ & limite mínimo de feromônio imposto no algoritmo\\
+ \hline
+\end{tabular}
+\end{center}    
+\end{frame}
+
+\begin{frame}
+\frametitle{ MAX-MIN Ant System (MMAS)}
+O operador que define as fronteiras para feromônio é definido como:
+
+$$[x]_{b}^{a}= \left \{ \begin{matrix} a, & \mbox{se } x>a \\ b, &\mbox{se } x>a \\ x,&  \mbox{caso contrario}\\
+\end{matrix} \righ.
+$$
+
+E a escolha depósito de feromônio para a formiga \textbf{elitista} é:
+$$\Delta\tau_{i j}^{best}= \left \{ \begin{matrix} Q/L_{best}, & \mbox{se }\mbox{ a aresta $$(i,j)$$ faz parte do melhor percurso} \\ 0, & \mbox{caso contrário} \end{matrix} \righ.
+$$
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\frametitle{ Ant Colony System (ACS)}
+ diferença entre os outros algoritmos é que:
+\begin{itemize}
+  \item O feromônio é atualizado localmente.
+  \item A formiga elitista tem função de atualização de feromônio correlata ao feromônio de inicialização.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Mas esses algoritmos convergem??}
+
+Na literatura do artigo, é provado que \textbf{MMAS} e \textbf{ACS} convergem.
+Porém, em algoritmos de natureza não determinística, costuma-se tratar o erro com a grandeza $deception$, na qual:
+
+$$deception(Algorimos Genéticos)<deception(ACO)$$
+
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Complexidade}
+    O melhor dos algoritmos(ACO) tem complexidade Logaritmíca em função das taxas de evaporação, número fixo de iterações e número k de formigas. 
+    
+    
+\end{frame}
+
+
+
+
+\begin{frame}
+    \frametitle{Aplicações}
+    As aplicações do AntSystem são em problemas NP-Completos:
+
+\begin{itemize}
+  \item Machine Learning.
+  \item BioInformática.
+  \item Rotas.
+  \item Problemas de Programação Linear.
+\end{itemize}
+
+    
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%PARTE 2 FIM %%%%%%%%
+
+
+%%%%%%%%%%%%PARTE 3 INICIO %%%%%%%%%%%
+
+\begin{frame}{Aplicações do ACO fora do contexto acadêmico}
+
+\begin{itemize}
+    \item Aplicação em Redes de Telecomunicação
+    \newline
+    \item Um exemplo bem conhecido e o AntNet
+    \newline
+    \item AntNet tem sido exaustivamente testado em simulações,em diferentes redes, sobre diferentes padrões de trafico,provando ser altamente adaptativo e robusto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicação em Redes de Telecomunicação}{Internet/Telefonia}
+  \begin{itemize}
+  \item {
+  Os estudos a respeito do algorítimo tem mostrado ser muito eficaz na realização de problemas em redes de telecomunicação.
+  }
+  \newline
+  \item {
+ Ant Collony Optmization foi primeiramente aplicado fora do contexto acadêmico em problemas de encaminhamento de redes comutadas por circuitos(Tal como Redes telefônicas)
+  }
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Redes de internet}
+  \begin{itemize}
+  \item {
+Logo apos o uso do ACO para redes telefônicas, foi aplicado também em pacotes comutados de rede(Tal como redes locais, ou as redes de internet).
+  }
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Aplicação em Problemas industriais}
+  \begin{itemize}
+  \item {
+  O sucesso em problemas acadêmicos tem chamado a atenção para o numero de empresas que começaram a adotar o algorítimo ACO para Aplicações no mundo real.
+  }
+  \newline
+  \item {
+ No meio das primeiras empresas a explorar o algorítimo esta a EuroBios(www.eurobios.com)}
+  \newline
+  \item{ Oque estao fazendo? }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicação em Problemas industriais}
+  \begin{itemize}
+  \item {Eles aplicaram o ACO a um numero de diferentes problemas de programação, como um problema contínuo de fluxo de dois estágios com reservatórios finitos.}
+  \newline
+  \item{Esses problemas propostos também inclui vários constrangimentos como tempo de configuração,restrição de capacidade, compatibilidade de recursos e calendários de manutenção.}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicação em Problemas industriais}
+  \begin{itemize}
+  \item {Outra empresa que tem uma grande relevância na promoção de Aplica coes do AOC no mundo real e a AntOptima(www.antoptima.com)}
+  \newline
+  \item{ Qual suas ideias? }
+  \end{itemize}
+\end{frame}
+
+ \begin{frame}{Aplicação em Problemas industriais}
+  \begin{itemize}
+  \item {
+Os pesquisadores da AntOptima tem desenvolvido uma serie de ferramentas para a solução de problemas nas rotas onde há trafico de veículos. Algorítimos que buscam melhorar isso, são baseados no algorítimo AOC
+  }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algumas ferramentas criadas por esta empresa}
+  \begin{itemize}
+  \item {DYVOIL}
+  \newline
+  \item{Controla a distribuição de óleo aquecido para uma frota não homogênea de caminhões}
+  \newline
+\item {AntRoute}
+\newline
+\item {Para o roteamento
+de centenas de veículos de empresas,como exemplo uma rede alemã de supermercados chamado Migros.}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Melhor performance do AOC}
+  \begin{itemize}
+  \item {Para a melhor performance dos algorítimos AOC, convergências tem sido aprovadas para otimizar soluções.
+  \newline
+\item{Otimização de problemas de formas dinâmicas}
+\newline
+ \item{Otimização de problemas estocásticos(Que usam variáveis aleatórias).}
+ }
+  \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%% PARTE 3 FIM %%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%% PARTE 4 INICIO %%%%%%%%%%%%
+
+
+\begin{frame}{Problemas de Otimização Dinâmica}
+
+\begin{itemize}
+
+\uncover<+->{\justify \item Os problemas dinâmicos são caracterizados pelo fato de que o espaço de pesquisa muda durante o tempo. 
+\item Assim, durante a pesquisa, as condições da pesquisa, a definição da instância do problema e, assim, a qualidade das soluções já encontradas podem mudar. 
+\item Em tal situação, é crucial que o algoritmo seja capaz de ajustar a direção de busca, seguindo as mudanças do problema a ser resolvido. Um exemplo paradigmático é o roteamento em redes de telecomunicações. 
+}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Implementações Paralelas}
+
+\begin{itemize}
+
+\uncover{\justify \item Os algoritmos ACO podem ser paralelizados nos domínios de dados ou de população. Em particular, quaisquer modelos paralelos usados em outros algoritmos de base populacional podem ser facilmente adaptados à ACO.
+
+\item Duas estratégias principais foram seguidas. Em paralelismo refinado, muito poucos indivíduos são atribuídos a processadores individuais e a troca de informações entre os processadores é frequente. 
+
+\item Em abordagens de granulação grossa, ao contrário, subpopulações maiores são designadas para processadores individuais e a troca de informações é bastante rara.} 
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Implementações Paralelas}   
+\begin{itemize}
+    
+\item A pesquisa sobre algoritmos ACO paralelos mostrou rapidamente que a paralelização refinada resulta em uma sobrecarga de comunicação muito significativa. 
+
+\item Portanto, o foco tem se voltado principalmente para esquemas de paralelismo de granulação grossa, onde x colônias correm paralelamente em x processadores.
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Otimização Contínua}
+
+\begin{itemize}
+
+\uncover{\justify
+\item Recentemente, os algoritmos ACO foram aplicados à otimização contínua. Quando um algoritmo projetado para otimização combinatória é usado para lidar com um problema contínuo, a abordagem mais simples seria dividir o domínio de cada variável em um conjunto de intervalos. 
+
+\item No entanto, quando o domínio das variáveis é grande e a precisão exigida é alta, essa abordagem não é viável. Por esta razão, foram desenvolvidos algoritmos ACO, que são especificamente projetados para variáveis discretas contínuas e mistas.}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Outros algoritmos inspirados em formigas}
+\uncover<+->{\justify
+A fonte de inspiração da ACO é o comportamento de marcação de trajetória que algumas espécies de formigas exibem ao forragear. No entanto, esse comportamento não é o único comportamento de formigas que inspirou cientistas da computação.
+}
+\end{frame}
+
+
+\begin{frame}{Algoritmos Inspirados na Marcação de Forrageamento e Caminho}
+
+\begin{itemize}
+
+\uncover<+->{\justify \item Além da ACO, outras abordagens se inspiram na maneira como as formigas marcam o caminho: Edge Ant Walk e Vertex Ant Walk. 
+
+\item Ao contrário do ACO, nesses algoritmos o feromônio direciona as formigas para áreas inexploradas do espaço de busca. 
+
+\item De fato, o objetivo é, visitar todos os nós, sem conhecer a topologia do gráfico.
+}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Algoritmos Inspirados pela Divisão do Trabalho}
+
+\begin{itemize}
+
+\uncover<+->{\justify \item Em colônias de formigas, os trabalhadores individuais tendem a se especializar em tarefas específicas ao longo da vida. 
+
+\item No entanto, as formigas podem adaptar seu comportamento às circunstâncias: uma formiga-soldado pode se tornar uma forrageadora, uma enfermeira e uma guarda, e assim por diante.
+
+\item Essa combinação de especialização e flexibilidade é um recurso desejável para otimização e controle de vários agentes, especialmente em problemas de alocação de tarefas ou recursos que exigem adaptação contínua a condições variáveis.
+}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ Algoritmos Inspirados pelo Transporte Cooperativo}
+
+\begin{itemize}
+
+\item O comportamento das colônias de formigas também inspirou pesquisas em robótica, em particular para o projeto de algoritmos de controle distribuído para grupos de robôs. Um exemplo de uma tarefa que tem sido usada como uma referência para algoritmos aplicados a problemas de robótica distribuída é o push box cooperativo.
+
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%PARTE 4 FIM %%%%%%%%%%%%%5
+
+\end{document}
