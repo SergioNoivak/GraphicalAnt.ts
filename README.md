@@ -21,10 +21,10 @@
 
 <tr>
     <td>Apresentar o Diagrama de classes para o resto do grupo</td>
-    <td>05/05/2018</td>
-    <td>05/05/2018</td>
+    <td>27/04/2018</td>
+    <td>27/04/2018</td>
     <td>durante todo o dia</td>
-    <td><b>Sergio</b></td>
+    <td>Sergio</td>
 </tr>
 
 <tr>
