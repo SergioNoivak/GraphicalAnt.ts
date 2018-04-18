@@ -8,13 +8,23 @@
     <th>Data de Entrega para o professor</th> 
     <th>Data Prevista de Revisão</th>
     <th>Horário Previsto de Revisão</th>
-
+    <th>Integrante(s) envolvido(s)</th>
   </tr>
   <tr>
     <td>Resumo do Artigo em LATEX para o professor</td>
     <td>24/04/2018</td> 
     <td>23/04/2018</td>
     <td>17:00</td>
+    <td><b>todos</b></td>
+</tr>
+
+
+<tr>
+    <td>Apresentar o Diagrama de classes para o resto do grupo</td>
+    <td>05/05/2018</td>
+    <td>05/05/2018</td>
+    <td>durante todo o dia</td>
+    <td><b>Sergio</b></td>
 </tr>
 
 <tr>
@@ -22,6 +32,7 @@
     <td>05/05/2018</td>
     <td>05/05/2018</td>
     <td>durante todo o dia</td>
+    <td><b>todos</b></td>
 </tr>
 
 </table>
