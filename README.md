@@ -1,4 +1,21 @@
 # GraphicalAnt
+
+## Datas importantes
+
+<table id="t01">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+
+
 ## Introdução
 
 Este sistema tem como objetivo propor a implementação em `javascript` de uma heurística chamada Otimização por Colônia de Formigas.<br>
