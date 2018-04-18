@@ -1,6 +1,3 @@
-teste
-
-
 # GraphicalAnt
 ## Introdução
 
