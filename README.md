@@ -4,15 +4,26 @@
 
 <table id="t01">
   <tr>
-    <th>Firstname</th>
-    <th>Lastname</th> 
-    <th>Age</th>
+    <th>Tarefa</th>
+    <th>Data de Entrega para o professor</th> 
+    <th>Data Prevista de Revisão</th>
+    <th>Horário Previsto de Revisão</th>
+
   </tr>
   <tr>
-    <td>Eve</td>
-    <td>Jackson</td> 
-    <td>94</td>
-  </tr>
+    <td>Resumo do Artigo em LATEX para o professor</td>
+    <td>24/04/2018</td> 
+    <td>23/04/2018</td>
+    <td>17:00</td>
+</tr>
+
+<tr>
+    <td>Entrega das classes</td>
+    <td>05/05/2018</td>
+    <td>05/05/2018</td>
+    <td>durante todo o dia</td>
+</tr>
+
 </table>
 
 
