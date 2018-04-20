@@ -48,7 +48,7 @@ Tal implementação possibilitará resolver problemas tipo caixeiro viajante e s
 A equipe terá como ferramentas as seguintes tecnologias:
 * A linguagem de programação `javascript` com [documentação](https://developer.mozilla.org/bm/docs/Web/JavaScript/Reference);
 * o framework para modelagem gráfica `d3` com [site](https://d3js.org) de documentação e [repositório](https://github.com/d3/d3) ;
-* A plataforma Node.js para desenvolvimento e testes de unidade [Node.js _x64](https://nodejs.org/en/)
+* A plataforma `Node.js` para desenvolvimento e testes de unidade [Node.js _x64](https://nodejs.org/en/)
 ## Arquitetura do projeto
 
 Proponho o modelo `M.V.C.` para aquitetura.
