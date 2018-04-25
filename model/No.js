@@ -1,7 +1,4 @@
-
-
 //classe No
-
 function No(){
 
     this.nomeDeCidade;
