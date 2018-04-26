@@ -21,21 +21,31 @@ module.exports = class No {
     }
 
 
-    adicionarNoAdj(...nos){
-
-        nos.forEach((elemento,indice )=> {
-
-          if(elemento instanceof No)
-          this.listaDeAdjacencia.push(elemento);
+    adicionarAresta(noFim,peso){
     
-        });  
+      this.listaDeAdjacencia.push([noFim,peso]);
+    
     }
-    
 
+    
    getNome() {
     return nomeDeCidade;  
   }
-  getListaAdj(){
-    return this.listaDeAdjacencia;
+  
+  
+  Exibir(){
+
+      process.stdout.write(this.nomeDeCidade+"|")
+      
+      this.listaDeAdjacencia.forEach(elemento => {
+        
+        process.stdout.write("("+elemento[0].nomeDeCidade+" , ");
+        process.stdout.write(elemento[1]+") ");        
+        
+      });
+      
   }
+  
+
+
 };
