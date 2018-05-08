@@ -6,6 +6,7 @@ const Grafo = require('./Grafo.js');
 
 
 var no1 = new No("Cascavel");
+no1.jdsakjdhaslkdhasljda("fdssfdsfdsafdsa");
 var no2 = new No("Corbélia");
 var no3 = new No("Rio Verde");
 

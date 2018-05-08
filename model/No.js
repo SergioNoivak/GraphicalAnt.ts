@@ -1,8 +1,9 @@
 
 
 module.exports = class No {
-  constructor(nomeDeCidade,listaDeAdjacencia) {
-    
+
+
+  constructor(nomeDeCidade,listaDeAdjacencia) {  
     if(arguments.length===0){
       this.nomeDeCidade = "";
       this.listaDeAdjacencia = [];
