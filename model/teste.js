@@ -1,22 +1,39 @@
+// const No = require('./No.js');
+// const Grafo = require('./Grafo.js');
 
 
+// var no1 = new No("Cascavel");
+// var no2 = new No("Corbélia");
+// var no3 = new No("Rio Verde");
 
-const No = require('./No.js');
-const Grafo = require('./Grafo.js');
+// no1.adicionarAresta(no2,11);
+// no1.adicionarAresta(no3,11);
+// no1.adicionarAresta(no1,11);
+
+// var g1 = new Grafo()  ;
+
+// g1.AdicionarNo(no1);
+// g1.AdicionarNo(no2);
+// g1.AdicionarNo(no3);
+
+// g1.Exibir();
+// var a = Aresta();
 
 
-var no1 = new No("Cascavel");
-var no2 = new No("Corbélia");
-var no3 = new No("Rio Verde");
+// const Aresta = require('./Aresta.js');
+// const No = require('./No.js');
 
-no1.adicionarAresta(no2,11);
-no1.adicionarAresta(no3,11);
-no1.adicionarAresta(no1,11);
+// var n1 = new No("Rio Verde");
 
-var g1 = new Grafo()  ;
 
-g1.AdicionarNo(no1);
-g1.AdicionarNo(no2);
-g1.AdicionarNo(no3);
+// var obj_teste = Aresta.construtorAresta(12,[1,1]); //undefined
+// console.log(obj_teste==null);
+//obj_teste.iniciarAresta(); 
 
-g1.Exibir();
+
+const Formiga = require('./Formiga.js');
+var obj_teste = new Formiga(2);
+
+
+// console.log(obj_teste == null);
+// obj_teste.CalcularLarguraCaminho();
