@@ -16,7 +16,7 @@ module.exports = class Aresta{
         if(typeof(distancia)!== "number" || !(noFim instanceof No))
             return null;    
         
-        return new Aresta();
+        return new Aresta(distancia, noFim);
     }
 
 

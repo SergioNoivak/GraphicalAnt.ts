@@ -20,19 +20,22 @@
 // var a = Aresta();
 
 
-// const Aresta = require('./Aresta.js');
-// const No = require('./No.js');
+const Aresta = require('./Aresta.js');
+const No = require('./No.js');
 
-// var n1 = new No("Rio Verde");
+var n1 = new No("Rio Verde");
+var obj_aresta = Aresta.construtorAresta(12,n1); 
 
 
-// var obj_teste = Aresta.construtorAresta(12,[1,1]); //undefined
 // console.log(obj_teste==null);
 //obj_teste.iniciarAresta(); 
 
 
 const Formiga = require('./Formiga.js');
-var obj_teste = new Formiga(2);
+var obj_teste = Formiga.construtorFormiga(1);
+
+obj_teste.adicionarArestasAoCaminho(obj_aresta,obj_aresta);
+console.log(obj_teste);
 
 
 // console.log(obj_teste == null);
