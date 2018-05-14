@@ -1,52 +1,31 @@
-
-
-module.exports = class No {
-
-
-  constructor(nomeDeCidade,listaDeAdjacencia) {  
-    if(arguments.length===0){
-      this.nomeDeCidade = "";
-      this.listaDeAdjacencia = [];
-    return;
+"use strict";
+exports.__esModule = true;
+var No = /** @class */ (function () {
+    function No(nomeDeCidade, listaDeAdjacencia) {
+        this.nomeDeCidade = nomeDeCidade ? nomeDeCidade : "";
+        this.listaDeAdjacencia = listaDeAdjacencia ? listaDeAdjacencia : (new Array());
     }
-    
-    if(typeof(nomeDeCidade)=== 'number'||typeof(nomeDeCidade)=== 'string'){
-      this.nomeDeCidade = nomeDeCidade;
-    }
-
-    if(listaDeAdjacencia instanceof Array)
-      this.listaDeAdjacencia = listaDeAdjacencia;
-    else
-      this.listaDeAdjacencia = [];
-  
-    }
-
-
-    adicionarAresta(noFim,peso){
-    
-      this.listaDeAdjacencia.push([noFim,peso]);
-    
-    }
-
-    
-   getNome() {
-    return nomeDeCidade;  
-  }
-  
-  
-  Exibir(){
-
-      process.stdout.write(this.nomeDeCidade+"|")
-      
-      this.listaDeAdjacencia.forEach(elemento => {
-        
-        process.stdout.write("("+elemento[0].nomeDeCidade+" , ");
-        process.stdout.write(elemento[1]+") ");        
-        
-      });
-      
-  }
-  
-
-
-};
+    No.prototype.Exibir = function () {
+        console.log("%s|", this.nomeDeCidade);
+        this.listaDeAdjacencia.forEach(function (aresta) {
+            aresta.exibirNaListaAdjacencia();
+            console.log("");
+        });
+    };
+    No.prototype.adicionarNaLista = function (primeiraAresta) {
+        var _this = this;
+        var restoDasArestas = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            restoDasArestas[_i - 1] = arguments[_i];
+        }
+        this.listaDeAdjacencia.push(primeiraAresta);
+        restoDasArestas.forEach(function (aresta) {
+            _this.listaDeAdjacencia.push(aresta);
+        });
+    };
+    No.prototype.getNomeDeCidade = function () {
+        return this.nomeDeCidade;
+    };
+    return No;
+}());
+exports.No = No;

@@ -1,0 +1,12 @@
+"use strict";
+exports.__esModule = true;
+var ArestaFactory_1 = require("./ArestaFactory");
+var NoFactory_1 = require("./NoFactory");
+var n1 = NoFactory_1.NoFactory.buildNo("Rio Verde");
+var n2 = NoFactory_1.NoFactory.buildNo("Cascavel");
+var n3 = NoFactory_1.NoFactory.buildNo("Casanova");
+var n4 = NoFactory_1.NoFactory.buildNo("COBELIA");
+var a1 = ArestaFactory_1.ArestaFactory.buildAresta(n2, 11);
+var a2 = ArestaFactory_1.ArestaFactory.buildAresta(n3, 1);
+n1.adicionarNaLista(a1, a2);
+n1.Exibir();

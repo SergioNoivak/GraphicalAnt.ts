@@ -1,36 +1,24 @@
-const No = require('./No.js');
-
-module.exports = class Aresta{
-
-    constructor(distancia, noFim){
+"use strict";
+exports.__esModule = true;
+var Aresta = /** @class */ (function () {
+    function Aresta(noFim, distancia) {
         this.feromonioAtual = 1;
-        this.distancia=distancia;
         this.noFim = noFim;
-        //Internos
+        this.distancia = distancia;
     }
-
-    static construtorAresta(distancia, noFim){
-        if(arguments.length===0||distancia<=0){
-            return null;
-        }
-        if(typeof(distancia)!== "number" || !(noFim instanceof No))
-            return null;    
-        
-        return new Aresta(distancia, noFim);
-    }
-
-
-
-    iniciarAresta(){
-       if(this!==null)
-        this.feromonioAtual=1;
-    }
-    inversoDaDistancia(){
-        return (this.distancia<=0)? (999999999999) : (1/this.distancia);
-    }
-
-    calcularAptidao(){
-
-        return this.feromonioAtual*this.inversoDaDistancia();
-    }
-}
+    Aresta.prototype.getDistancia = function () {
+        return this.distancia;
+    };
+    Aresta.prototype.inversoDaDistancia = function () {
+        return 1 / this.distancia;
+    };
+    Aresta.prototype.getAptidao = function () {
+        return this.inversoDaDistancia() * this.feromonioAtual;
+    };
+    Aresta.prototype.exibirNaListaAdjacencia = function () {
+        console.log("(%s,", this.noFim.getNomeDeCidade());
+        console.log("%d)", this.distancia);
+    };
+    return Aresta;
+}());
+exports.Aresta = Aresta;
