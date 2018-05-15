@@ -1,6 +1,7 @@
 export class Algoritmos{
 
     static Roleta(vetorDeProbabilidades:Array<number>, somaAptidoes:number){       
+            
             var TotalParcial = 0;
             var p = 0.0;
             p = (Math.random() * somaAptidoes*100000) + 0;
@@ -17,4 +18,6 @@ export class Algoritmos{
             //console.log("**Indice i após o fim do laço:    "+i);        // APAGAR
             return i;
         }
+
+
 }

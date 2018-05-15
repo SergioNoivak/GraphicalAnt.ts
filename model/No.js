@@ -6,10 +6,9 @@ var No = /** @class */ (function () {
         this.listaDeAdjacencia = listaDeAdjacencia ? listaDeAdjacencia : (new Array());
     }
     No.prototype.Exibir = function () {
-        console.log("%s|", this.nomeDeCidade);
+        process.stdout.write(this.nomeDeCidade + "|");
         this.listaDeAdjacencia.forEach(function (aresta) {
             aresta.exibirNaListaAdjacencia();
-            console.log("");
         });
     };
     No.prototype.adicionarNaLista = function (primeiraAresta) {

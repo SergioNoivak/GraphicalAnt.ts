@@ -12,12 +12,11 @@ export class No{
 
     public Exibir():void{
 
-        console.log("%s|",this.nomeDeCidade);
-        
+        process.stdout.write(this.nomeDeCidade+"|");
+
         this.listaDeAdjacencia.forEach(aresta => {
         
           aresta.exibirNaListaAdjacencia();    
-          console.log("");
         });
 
     }

@@ -1,5 +1,6 @@
 import { No } from './No';
 
+
 export class Aresta{
     private feromonioAtual : number;
     private distancia : number;
@@ -21,8 +22,8 @@ export class Aresta{
     }
 
     public exibirNaListaAdjacencia(){
-        console.log("(%s,",this.noFim.getNomeDeCidade());
-        console.log("%d)", this.distancia);        
+        process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
+        process.stdout.write( this.distancia+")");        
     
     }
 
