@@ -89,13 +89,34 @@ PROCESS Construção-do-ciclo-hamiltoniano-para-a-formiga(G)
     vetorCidades = G[V]
     rotaFormiga.push(vetorCidades.RandomPop())
     WHILE vetorCidades não vazio
-        vetorProbabilidades = rotaFormiga.back().RefreshProb(vetorCidades)
+        cidadeAtual =rotaFormiga.back()
+        vetorProbabilidades = cidadeAtual.RefreshProb(vetorCidades)
         cidadeAVisitar = Roleta(vetorProbabilidades)
+        Depositar-feromonio(cidadeAtual,cidadeAVisitar)
         RotaFormiga.push(vetorCidades.pop(cidadeAVisitar)
     RETURN rotaFormiga
 ```
 
+Seja vetorDeSolucoes o vetor que irá armazenar todas as soluções de uma iteração, logo o processo Construir-solução-parcial(G) é descrito como:
 
+```
+PROCESS Construir-solução-parcial(G)
+  formigaElitista=IDEAL_DE_PIOR_SOLUCAO
+    FOR EACH formiga IN numero de formigas
+         solucaoCorrente = (Construção-do-ciclo-hamiltoniano-para-a-formiga(G))
+         IF solucaoCorrente.larguraDeCaminho<formigaElitista.larguraDeCaminho
+              formigaElitista=solucaoCorrente
+          vetorDeSolucoes.push(solucaoCorrente)
+          Atualizar-feromonio-caminho(solucaoCorrente)    
+    Evaporar-Feromonio(G,taxaDeEvaporacao)
+  RETURN formigaElitista
+```
 
-
-
+O processo do Ant System fica então 
+```
+PROCESS Ant-System(G)
+   formigaElitista
+   WHILE !condiçãoDeParada
+      formigaElitista= Construir-solução-parcial(G)
+   return formigaElitista.rota
+```
