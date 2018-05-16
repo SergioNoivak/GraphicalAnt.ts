@@ -80,10 +80,19 @@ GraphicalAnt/
 * Sergio Souza Novak
 * Venâncio Edwirge
 
-## Construção da iteração de uma formiga
+## AntSystem Construção da iteração de uma formiga
+
+O procedimento Construção-do-ciclo-hamiltoniano-para-a-formiga retorna um ciclo hamiltoniano que é uma possível solução. Para o algoritmo o grafo deve ser completo. 
 
 ```
-sadsadsa
+PROCESS Construção-do-ciclo-hamiltoniano-para-a-formiga(G)
+    vetorCidades = G[V]
+    rotaFormiga.push(vetorCidades.RandomPop())
+    WHILE vetorCidades não vazio
+        vetorProbabilidades = rotaFormiga.back().RefreshProb(vetorCidades)
+        cidadeAVisitar = Roleta(vetorProbabilidades)
+        RotaFormiga.push(vetorCidades.pop(cidadeAVisitar)
+    RETURN rotaFormiga
 ```
 
 
