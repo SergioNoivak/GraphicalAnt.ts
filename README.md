@@ -80,3 +80,13 @@ GraphicalAnt/
 * Sergio Souza Novak
 * Venâncio Edwirge
 
+## Construção da iteração de uma formiga
+
+```
+sadsadsa
+```
+
+
+
+
+
