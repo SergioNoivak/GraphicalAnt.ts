@@ -80,7 +80,7 @@ GraphicalAnt/
 * Sergio Souza Novak
 * Venâncio Edwirge
 
-## AntSystem Construção da iteração de uma formiga
+## AntSystem 
 
 O procedimento Construção-do-ciclo-hamiltoniano-para-a-formiga retorna um ciclo hamiltoniano que é uma possível solução. Para o algoritmo o grafo deve ser completo. 
 
