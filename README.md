@@ -94,6 +94,13 @@ PROCESS Construção-do-ciclo-hamiltoniano-para-a-formiga(G)
         cidadeAVisitar = Roleta(vetorProbabilidades)
         Depositar-feromonio(cidadeAtual,cidadeAVisitar)
         RotaFormiga.push(vetorCidades.pop(cidadeAVisitar)
+        
+    
+    cidadeAtual =rotaFormiga.back()
+    vetorProbabilidades = cidadeAtual.RefreshProb(vetorCidades)
+    cidadeAVisitar = Roleta(vetorProbabilidades)
+    Depositar-feromonio(cidadeAtual,cidadeAVisitar)
+    RotaFormiga.push(vetorCidades.pop(cidadeAVisitar)
     RETURN rotaFormiga
 ```
 
