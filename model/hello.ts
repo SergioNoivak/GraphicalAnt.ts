@@ -5,36 +5,60 @@ import { NoFactory } from './NoFactory';
 import { Algoritmos } from './Algoritmos';
 import { Grafo } from './Grafo';
 
-let n1 = NoFactory.buildNo("Rio Verde");
-let n2 = NoFactory.buildNo("Cascavel");
-let n3 = NoFactory.buildNo("Casanova");
-let n4 = NoFactory.buildNo("COBELIA");
+// A
+// B
+// C
+// D
+// E
 
 
-
-let a1 = ArestaFactory.buildAresta(n2,11);
-let a2 = ArestaFactory.buildAresta(n3,1);
-
-let a3 = ArestaFactory.buildAresta(n2,11);
-let a4 = ArestaFactory.buildAresta(n3,1);
-
+let A = NoFactory.buildNo("A");
+let B = NoFactory.buildNo("B");
+let C = NoFactory.buildNo("C");
+let D = NoFactory.buildNo("D");
+let E = NoFactory.buildNo("E");
 
 
+let ab0 = ArestaFactory.buildAresta(B,27);
+let ba0 = ArestaFactory.buildAresta(A,27);
+let ac5 = ArestaFactory.buildAresta(C,3);
+let ca5 = ArestaFactory.buildAresta(A,3);
+let ad9 = ArestaFactory.buildAresta(D,74);
+let da9 = ArestaFactory.buildAresta(A,74);
+let ae4 = ArestaFactory.buildAresta(E,7);
+let ea4 = ArestaFactory.buildAresta(A,7);
+A.adicionarNaLista(ab0,ac5,ad9,ae4);
 
-n1.adicionarNaLista(a1,a2);
 
-n2.adicionarNaLista(a1,a2,a3,a4);
+let bc1 = ArestaFactory.buildAresta(C,5);
+let cb1 = ArestaFactory.buildAresta(B,5);
+let bd8 = ArestaFactory.buildAresta(D,2);
+let db8 = ArestaFactory.buildAresta(B,2);
+let be7 = ArestaFactory.buildAresta(E,9);
+let eb7 = ArestaFactory.buildAresta(B,9);
+B.adicionarNaLista(ba0,bc1,bd8,be7);
 
-n3.adicionarNaLista(a3,a4);
+let ce6 = ArestaFactory.buildAresta(E,15);
+let ec6 = ArestaFactory.buildAresta(C,15);
+let cd2 = ArestaFactory.buildAresta(D,54);
+let dc2 = ArestaFactory.buildAresta(C,54);
+C.adicionarNaLista(cb1,ca5,ce6,cd2);
 
-n4.adicionarNaLista(a4);
+let de3 = ArestaFactory.buildAresta(E,4);
+let ed3 = ArestaFactory.buildAresta(D,4);
+D.adicionarNaLista(dc2,db8,da9,de3);
+
+E.adicionarNaLista(ea4,eb7,ec6,ed3);
+
 
 
 var grafo = new Grafo();
-grafo.adicionarNos(n1,n2,n3,n4);
-grafo.Exibir();
+grafo.adicionarNos(A,B,C,D,E);
 
 
 
+var marcados =new Map<string,boolean>();
+marcados["B"]=true;
 
+Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo);
 

@@ -11,6 +11,10 @@ export class Aresta{
         this.noFim = noFim;
         this.distancia = distancia;
     }
+    public getFim():No{
+        return this.noFim;
+
+    }
     public getDistancia():number{
         return this.distancia;
     }
@@ -22,8 +26,8 @@ export class Aresta{
     }
 
     public exibirNaListaAdjacencia(){
-        process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
-        process.stdout.write( this.distancia+")");        
+        //process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
+        //process.stdout.write( this.distancia+")");        
     
     }
 

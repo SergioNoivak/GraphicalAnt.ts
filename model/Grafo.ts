@@ -9,6 +9,10 @@ export class Grafo{
     }
 
     
+    public getVetorDeNos():Array<No>{
+        return this.vetorDeNos;
+    }
+
      adicionarNos(primeiroNo:No, ...restanteDosNos:Array<No>):void{
         this.vetorDeNos.push(primeiroNo);
         
@@ -18,6 +22,7 @@ export class Grafo{
         });
 
     }
+    
 
     Exibir():void{
 
@@ -26,12 +31,8 @@ export class Grafo{
             console.log();
             
         });
-
-
-
-
-
     }
+    
 
 
     

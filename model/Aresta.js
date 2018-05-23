@@ -6,6 +6,9 @@ var Aresta = /** @class */ (function () {
         this.noFim = noFim;
         this.distancia = distancia;
     }
+    Aresta.prototype.getFim = function () {
+        return this.noFim;
+    };
     Aresta.prototype.getDistancia = function () {
         return this.distancia;
     };
@@ -16,8 +19,8 @@ var Aresta = /** @class */ (function () {
         return this.inversoDaDistancia() * this.feromonioAtual;
     };
     Aresta.prototype.exibirNaListaAdjacencia = function () {
-        process.stdout.write("(" + this.noFim.getNomeDeCidade() + ",");
-        process.stdout.write(this.distancia + ")");
+        //process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
+        //process.stdout.write( this.distancia+")");        
     };
     return Aresta;
 }());

@@ -19,6 +19,56 @@ var Algoritmos = /** @class */ (function () {
         //console.log("**Indice i após o fim do laço:    "+i);        // APAGAR
         return i;
     };
+    Algoritmos.escolherIndiceCidadeAleatoria = function (vetorDeCidades) {
+        var arrayDeAptidoes = new Array();
+        vetorDeCidades.forEach(function (element) {
+            arrayDeAptidoes.push(1 / vetorDeCidades.length);
+        });
+        var indexpop = this.Roleta(arrayDeAptidoes, 1);
+        return indexpop;
+    };
+    Algoritmos.iniciarNaoMarcados = function (vetorDeNos) {
+        var naoMarcados = new Map();
+        vetorDeNos.forEach(function (no) {
+            naoMarcados[no.getNomeDeCidade()] = true;
+        });
+        return naoMarcados;
+    };
+    Algoritmos.prototype.vazioMap = function (vetorDePercorridos) {
+        return vetorDePercorridos.size == 0;
+    };
+    Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga = function (grafo) {
+        var vetorDeCidades = grafo.getVetorDeNos();
+        var numeroDeNaoMarcados = vetorDeCidades.length;
+        var marcados = new Map();
+        var rotaFormiga = new Array();
+        var LarguraDeCaminho = 0.0;
+        var indiceDeCidadeInicial = this.escolherIndiceCidadeAleatoria(vetorDeCidades);
+        var cidadeInicial = vetorDeCidades[indiceDeCidadeInicial];
+        rotaFormiga.push(cidadeInicial);
+        marcados[cidadeInicial.getNomeDeCidade()] = true;
+        var ultimaCidadeAdicionada;
+        var cidadeAtual;
+        var proximaAresta;
+        while (numeroDeNaoMarcados != 1) {
+            ultimaCidadeAdicionada = rotaFormiga[rotaFormiga.length - 1];
+            cidadeAtual = ultimaCidadeAdicionada;
+            proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
+            rotaFormiga.push(proximaAresta.getFim());
+            var nomeDeProximaCidade = proximaAresta.getFim().getNomeDeCidade();
+            marcados[nomeDeProximaCidade] = true;
+            numeroDeNaoMarcados--;
+            LarguraDeCaminho += proximaAresta.getDistancia();
+        }
+        marcados[cidadeInicial.getNomeDeCidade()] = undefined;
+        proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
+        rotaFormiga.push(proximaAresta.getFim());
+        numeroDeNaoMarcados--;
+        LarguraDeCaminho += proximaAresta.getDistancia();
+        rotaFormiga.forEach(function (noDoCiclo) {
+            console.log(noDoCiclo.getNomeDeCidade());
+        });
+    };
     return Algoritmos;
 }());
 exports.Algoritmos = Algoritmos;

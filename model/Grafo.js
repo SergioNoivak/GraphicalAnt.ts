@@ -4,6 +4,9 @@ var Grafo = /** @class */ (function () {
     function Grafo() {
         this.vetorDeNos = new Array();
     }
+    Grafo.prototype.getVetorDeNos = function () {
+        return this.vetorDeNos;
+    };
     Grafo.prototype.adicionarNos = function (primeiroNo) {
         var _this = this;
         var restanteDosNos = [];
