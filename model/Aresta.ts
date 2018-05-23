@@ -15,6 +15,10 @@ export class Aresta{
         return this.noFim;
 
     }
+
+    public receberDepositoDeFeromonio(depositoDeFeromonio:number){
+        this.feromonioAtual+=depositoDeFeromonio;
+    }
     public getDistancia():number{
         return this.distancia;
     }
@@ -30,5 +34,9 @@ export class Aresta{
         //process.stdout.write( this.distancia+")");        
     
     }
-
+    public exibirTipoEstruturaDeDados(){
+        process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
+        process.stdout.write( this.distancia+",");        
+        process.stdout.write( this.feromonioAtual+")");        
+    }
 }

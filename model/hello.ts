@@ -60,5 +60,5 @@ grafo.adicionarNos(A,B,C,D,E);
 var marcados =new Map<string,boolean>();
 marcados["B"]=true;
 
-Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo);
+Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo).exibirCiclo();
 

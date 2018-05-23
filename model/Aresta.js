@@ -9,6 +9,9 @@ var Aresta = /** @class */ (function () {
     Aresta.prototype.getFim = function () {
         return this.noFim;
     };
+    Aresta.prototype.receberDepositoDeFeromonio = function (depositoDeFeromonio) {
+        this.feromonioAtual += depositoDeFeromonio;
+    };
     Aresta.prototype.getDistancia = function () {
         return this.distancia;
     };
@@ -21,6 +24,11 @@ var Aresta = /** @class */ (function () {
     Aresta.prototype.exibirNaListaAdjacencia = function () {
         //process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
         //process.stdout.write( this.distancia+")");        
+    };
+    Aresta.prototype.exibirTipoEstruturaDeDados = function () {
+        process.stdout.write("(" + this.noFim.getNomeDeCidade() + ",");
+        process.stdout.write(this.distancia + ",");
+        process.stdout.write(this.feromonioAtual + ")");
     };
     return Aresta;
 }());

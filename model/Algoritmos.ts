@@ -48,11 +48,12 @@ export class Algoritmos{
         private vazioMap(vetorDePercorridos:Map<string,boolean>){
                return vetorDePercorridos.size == 0;
         }       
-        public static Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo:Grafo){
+        public static Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo:Grafo):Formiga{
+            
             var vetorDeCidades = grafo.getVetorDeNos();
             var numeroDeNaoMarcados = vetorDeCidades.length;
             var marcados = new Map<string,boolean>();        
-            var LarguraDeCaminho = 0.0;
+            var LarguraDeCiclo = 0.0;
             var formiga = FormigaFactory.buildFormiga(1);
             if(!formiga)
                 return;
@@ -62,7 +63,7 @@ export class Algoritmos{
 
             formiga.passarPelasCidades(cidadeInicial);
             marcados[cidadeInicial.getNomeDeCidade()]=true;
-            
+
             var ultimaCidadeAdicionada;
             var cidadeAtual;
             var proximaAresta;
@@ -74,17 +75,21 @@ export class Algoritmos{
                     var nomeDeProximaCidade=proximaAresta.getFim().getNomeDeCidade();
                     marcados[nomeDeProximaCidade]=true;
                     numeroDeNaoMarcados--;
-                    LarguraDeCaminho+=proximaAresta.getDistancia();
+                    LarguraDeCiclo+=proximaAresta.getDistancia();
+                    proximaAresta.exibirTipoEstruturaDeDados();
+                    formiga.depositarFeromonio(proximaAresta);                    
+                    proximaAresta.exibirTipoEstruturaDeDados();
              }
              
              marcados[cidadeInicial.getNomeDeCidade()] = undefined;
              proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
              formiga.passarPelasCidades(proximaAresta.getFim());
              numeroDeNaoMarcados--;
-             LarguraDeCaminho+=proximaAresta.getDistancia();
-             
-             formiga.exibirCiclo();
-             
+             LarguraDeCiclo+=proximaAresta.getDistancia();
+             formiga.depositarFeromonio(proximaAresta);
+             formiga.setLarguraCiclo(LarguraDeCiclo);
+
+        return formiga;
         }
 
 

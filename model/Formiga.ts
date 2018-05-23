@@ -20,7 +20,15 @@ export class Formiga{
         this.nosPassados = new Array<No>();
     }
 
-    public getLarguraCaminho():number {
+    public depositarFeromonio(aresta:Aresta){
+        aresta.receberDepositoDeFeromonio(this.quantidadeDeFeromonioQueDeposita);
+    }
+
+    public setLarguraCiclo(larguraDoCiclo:number) {
+        this.larguraDoCiclo=larguraDoCiclo;
+    }
+
+    public getLarguraCiclo():number {
         return this.larguraDoCiclo;
     }
 

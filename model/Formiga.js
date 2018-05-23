@@ -10,7 +10,13 @@ var Formiga = /** @class */ (function () {
         this.elitista = false;
         this.nosPassados = new Array();
     }
-    Formiga.prototype.getLarguraCaminho = function () {
+    Formiga.prototype.depositarFeromonio = function (aresta) {
+        aresta.receberDepositoDeFeromonio(this.quantidadeDeFeromonioQueDeposita);
+    };
+    Formiga.prototype.setLarguraCiclo = function (larguraDoCiclo) {
+        this.larguraDoCiclo = larguraDoCiclo;
+    };
+    Formiga.prototype.getLarguraCiclo = function () {
         return this.larguraDoCiclo;
     };
     Formiga.prototype.passarPelasCidades = function (primeiroNo) {

@@ -43,4 +43,4 @@ var grafo = new Grafo_1.Grafo();
 grafo.adicionarNos(A, B, C, D, E);
 var marcados = new Map();
 marcados["B"] = true;
-Algoritmos_1.Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo);
+Algoritmos_1.Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo).exibirCiclo();

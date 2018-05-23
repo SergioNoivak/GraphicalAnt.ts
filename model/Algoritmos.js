@@ -42,7 +42,7 @@ var Algoritmos = /** @class */ (function () {
         var vetorDeCidades = grafo.getVetorDeNos();
         var numeroDeNaoMarcados = vetorDeCidades.length;
         var marcados = new Map();
-        var LarguraDeCaminho = 0.0;
+        var LarguraDeCiclo = 0.0;
         var formiga = FormigaFactory_1.FormigaFactory.buildFormiga(1);
         if (!formiga)
             return;
@@ -61,14 +61,23 @@ var Algoritmos = /** @class */ (function () {
             var nomeDeProximaCidade = proximaAresta.getFim().getNomeDeCidade();
             marcados[nomeDeProximaCidade] = true;
             numeroDeNaoMarcados--;
-            LarguraDeCaminho += proximaAresta.getDistancia();
+            LarguraDeCiclo += proximaAresta.getDistancia();
+            console.log(" ");
+            console.log("Aresta escolhida ANTES:");
+            proximaAresta.exibirTipoEstruturaDeDados();
+            formiga.depositarFeromonio(proximaAresta);
+            console.log(" ");
+            console.log("Aresta escolhida DEPOIS:");
+            proximaAresta.exibirTipoEstruturaDeDados();
         }
         marcados[cidadeInicial.getNomeDeCidade()] = undefined;
         proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
         formiga.passarPelasCidades(proximaAresta.getFim());
         numeroDeNaoMarcados--;
-        LarguraDeCaminho += proximaAresta.getDistancia();
-        formiga.exibirCiclo();
+        LarguraDeCiclo += proximaAresta.getDistancia();
+        formiga.depositarFeromonio(proximaAresta);
+        formiga.setLarguraCiclo(LarguraDeCiclo);
+        return formiga;
     };
     return Algoritmos;
 }());
