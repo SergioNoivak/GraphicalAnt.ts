@@ -32,7 +32,11 @@ export class Aresta{
     public exibirNaListaAdjacencia(){
         //process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
         //process.stdout.write( this.distancia+")");        
-    
+    }
+
+    public evaporarFeromonio(percentualDeEvaporacao:number){
+
+        this.feromonioAtual*=percentualDeEvaporacao;
     }
     public exibirTipoEstruturaDeDados(){
         process.stdout.write("("+this.noFim.getNomeDeCidade()+",");

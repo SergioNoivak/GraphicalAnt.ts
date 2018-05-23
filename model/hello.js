@@ -2,8 +2,8 @@
 exports.__esModule = true;
 var ArestaFactory_1 = require("./ArestaFactory");
 var NoFactory_1 = require("./NoFactory");
-var Algoritmos_1 = require("./Algoritmos");
 var Grafo_1 = require("./Grafo");
+var AlgoritmosDeColoniaDeFormigas_1 = require("./AlgoritmosDeColoniaDeFormigas");
 // A
 // B
 // C
@@ -41,6 +41,4 @@ D.adicionarNaLista(dc2, db8, da9, de3);
 E.adicionarNaLista(ea4, eb7, ec6, ed3);
 var grafo = new Grafo_1.Grafo();
 grafo.adicionarNos(A, B, C, D, E);
-var marcados = new Map();
-marcados["B"] = true;
-Algoritmos_1.Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo).exibirCiclo();
+AlgoritmosDeColoniaDeFormigas_1.AlgoritmosDeColoniaDeFormigas.AntSystem(grafo, 100, 100, 1, 0.5);

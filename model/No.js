@@ -6,6 +6,9 @@ var No = /** @class */ (function () {
         this.nomeDeCidade = nomeDeCidade ? nomeDeCidade : "";
         this.listaDeAdjacencia = listaDeAdjacencia ? listaDeAdjacencia : (new Array());
     }
+    No.prototype.getListaDeVizinhos = function () {
+        return this.listaDeAdjacencia;
+    };
     No.prototype.Exibir = function () {
         //process.stdout.write(this.nomeDeCidade+"|");
         this.listaDeAdjacencia.forEach(function (aresta) {
@@ -37,14 +40,9 @@ var No = /** @class */ (function () {
                 vetorProbabilidades.push(aresta.getAptidao());
             }
         });
-        // console.log("vetorDeArestasVizinhasNaoMarcadas");
-        // console.log(vetorDeArestasVizinhasNaoMarcadas);
         vetorProbabilidades = vetorProbabilidades.map(function (x) { return x / somaAptidoes; });
         somaAptidoes = vetorProbabilidades.reduce(function (acumulador, elemento) { return acumulador += elemento; });
-        // console.log("vetorProbabilidades");
-        // console.log(vetorProbabilidades);
         var indiceEscolhido = Algoritmos_1.Algoritmos.Roleta(vetorProbabilidades, somaAptidoes);
-        // console.log("elementoEscolhido");
         return vetorDeArestasVizinhasNaoMarcadas[indiceEscolhido];
     };
     return No;

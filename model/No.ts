@@ -13,6 +13,12 @@ export class No{
          this.listaDeAdjacencia= listaDeAdjacencia? listaDeAdjacencia : ( new Array<Aresta>());
     }
 
+
+    public getListaDeVizinhos():Array<Aresta>{
+        return this.listaDeAdjacencia;
+    }
+
+
     public Exibir():void{
 
         //process.stdout.write(this.nomeDeCidade+"|");
@@ -55,17 +61,12 @@ export class No{
                 }
             });
 
-            // console.log("vetorDeArestasVizinhasNaoMarcadas");
 
-            // console.log(vetorDeArestasVizinhasNaoMarcadas);
 
             vetorProbabilidades = vetorProbabilidades.map(x=>x/somaAptidoes);
             somaAptidoes = vetorProbabilidades.reduce((acumulador,elemento)=> acumulador+=elemento);
-            // console.log("vetorProbabilidades");
-           
-            // console.log(vetorProbabilidades);
+    
             var indiceEscolhido = Algoritmos.Roleta(vetorProbabilidades,somaAptidoes);
-            // console.log("elementoEscolhido");
             return vetorDeArestasVizinhasNaoMarcadas[indiceEscolhido];
             
 

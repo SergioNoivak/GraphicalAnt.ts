@@ -34,6 +34,7 @@ var Formiga = /** @class */ (function () {
         this.nosPassados.forEach(function (noDoCiclo) {
             console.log(noDoCiclo.getNomeDeCidade());
         });
+        console.log("Largura:" + this.larguraDoCiclo);
     };
     Formiga.prototype.ultimoNoQuePassou = function () {
         return this.nosPassados[this.nosPassados.length - 1];

@@ -43,6 +43,8 @@ export class Formiga{
         this.nosPassados.forEach(noDoCiclo => {
             console.log(noDoCiclo.getNomeDeCidade());
         });
+        console.log("Largura:"+ this.larguraDoCiclo);
+
     }
     public ultimoNoQuePassou():No{
 

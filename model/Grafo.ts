@@ -22,6 +22,25 @@ export class Grafo{
         });
 
     }
+
+
+        public EvaporarFeromonio( taxaDeEvaporacao:number){
+
+            this.getVetorDeNos().forEach(no => {
+                var percentualDeEvaporacao = 1-taxaDeEvaporacao;
+                
+                no.getListaDeVizinhos().forEach(aresta => {
+                    aresta.evaporarFeromonio(percentualDeEvaporacao);
+                });
+            });
+
+
+
+
+
+
+
+        }
     
 
     Exibir():void{

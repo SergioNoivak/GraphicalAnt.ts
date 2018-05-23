@@ -4,6 +4,7 @@ import { ArestaFactory } from './ArestaFactory';
 import { NoFactory } from './NoFactory';
 import { Algoritmos } from './Algoritmos';
 import { Grafo } from './Grafo';
+import { AlgoritmosDeColoniaDeFormigas } from './AlgoritmosDeColoniaDeFormigas';
 
 // A
 // B
@@ -50,15 +51,8 @@ D.adicionarNaLista(dc2,db8,da9,de3);
 
 E.adicionarNaLista(ea4,eb7,ec6,ed3);
 
-
-
 var grafo = new Grafo();
 grafo.adicionarNos(A,B,C,D,E);
 
 
-
-var marcados =new Map<string,boolean>();
-marcados["B"]=true;
-
-Algoritmos.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo).exibirCiclo();
-
+AlgoritmosDeColoniaDeFormigas.AntSystem(grafo,100,100,1,0.5);

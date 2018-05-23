@@ -19,6 +19,14 @@ var Grafo = /** @class */ (function () {
                 _this.vetorDeNos.push(no);
             });
     };
+    Grafo.prototype.EvaporarFeromonio = function (taxaDeEvaporacao) {
+        this.getVetorDeNos().forEach(function (no) {
+            var percentualDeEvaporacao = 1 - taxaDeEvaporacao;
+            no.getListaDeVizinhos().forEach(function (aresta) {
+                aresta.evaporarFeromonio(percentualDeEvaporacao);
+            });
+        });
+    };
     Grafo.prototype.Exibir = function () {
         this.vetorDeNos.forEach(function (no) {
             no.Exibir();

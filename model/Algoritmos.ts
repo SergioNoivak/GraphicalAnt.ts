@@ -14,15 +14,10 @@ export class Algoritmos{
             p = (Math.random() * somaAptidoes*100000) + 0;
             p/=100000;
             var i = -1;
-            //console.log("Resultado do sorteio:     ",p);                   // APAGAR
-
             while(i < vetorDeProbabilidades.length && TotalParcial < p) {
                 i = i+1;
-                //console.log("Total Parcial Ant:  ", TotalParcial);               //APAGAR
                 TotalParcial = TotalParcial + vetorDeProbabilidades[i];
-                //console.log("Total Parcial depois da mudança:   ", TotalParcial);     // APAGAR
             }
-            //console.log("**Indice i após o fim do laço:    "+i);        // APAGAR
             return i;
         }
 
@@ -48,13 +43,13 @@ export class Algoritmos{
         private vazioMap(vetorDePercorridos:Map<string,boolean>){
                return vetorDePercorridos.size == 0;
         }       
-        public static Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo:Grafo):Formiga{
+        public static Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo:Grafo,quantidadeDeFeromonioQueDeveSerDepositado?:number):Formiga{
             
             var vetorDeCidades = grafo.getVetorDeNos();
             var numeroDeNaoMarcados = vetorDeCidades.length;
             var marcados = new Map<string,boolean>();        
             var LarguraDeCiclo = 0.0;
-            var formiga = FormigaFactory.buildFormiga(1);
+            var formiga = FormigaFactory.buildFormiga(quantidadeDeFeromonioQueDeveSerDepositado);
             if(!formiga)
                 return;
 
@@ -76,11 +71,8 @@ export class Algoritmos{
                     marcados[nomeDeProximaCidade]=true;
                     numeroDeNaoMarcados--;
                     LarguraDeCiclo+=proximaAresta.getDistancia();
-                    proximaAresta.exibirTipoEstruturaDeDados();
                     formiga.depositarFeromonio(proximaAresta);                    
-                    proximaAresta.exibirTipoEstruturaDeDados();
              }
-             
              marcados[cidadeInicial.getNomeDeCidade()] = undefined;
              proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
              formiga.passarPelasCidades(proximaAresta.getFim());
@@ -88,9 +80,29 @@ export class Algoritmos{
              LarguraDeCiclo+=proximaAresta.getDistancia();
              formiga.depositarFeromonio(proximaAresta);
              formiga.setLarguraCiclo(LarguraDeCiclo);
-
         return formiga;
-        }
+    }
+
+    public static Construir_solucao_parcial(grafo:Grafo,numeroDeFormigas?:number,quantidadeDeFeromonioQueDeveSerDepositado?:number,taxaDeEvaporacao?:number):Formiga{
+            if(taxaDeEvaporacao==undefined)
+            taxaDeEvaporacao = 0.1;    
+
+            var FormigaElitista = new Formiga();
+            FormigaElitista.setLarguraCiclo(Number.MAX_VALUE);
+            var solucoesConstruidas = new Array<Formiga>();
 
 
+            var formigaDaSolucao:Formiga;
+            for(var contadorDeIteracoes = 0;contadorDeIteracoes<numeroDeFormigas;contadorDeIteracoes++){
+            formigaDaSolucao = this.Construcao_do_ciclo_hamiltoniano_para_a_formiga(grafo,quantidadeDeFeromonioQueDeveSerDepositado);
+            if(formigaDaSolucao.getLarguraCiclo()<FormigaElitista.getLarguraCiclo())
+                FormigaElitista = formigaDaSolucao;
+            solucoesConstruidas.push(formigaDaSolucao);
+            formigaDaSolucao.exibirCiclo();
+            }
+
+            grafo.EvaporarFeromonio(taxaDeEvaporacao);
+            console.log("****************************");
+           return FormigaElitista;
+    }
 }

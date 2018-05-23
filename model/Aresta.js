@@ -25,6 +25,9 @@ var Aresta = /** @class */ (function () {
         //process.stdout.write("("+this.noFim.getNomeDeCidade()+",");
         //process.stdout.write( this.distancia+")");        
     };
+    Aresta.prototype.evaporarFeromonio = function (percentualDeEvaporacao) {
+        this.feromonioAtual *= percentualDeEvaporacao;
+    };
     Aresta.prototype.exibirTipoEstruturaDeDados = function () {
         process.stdout.write("(" + this.noFim.getNomeDeCidade() + ",");
         process.stdout.write(this.distancia + ",");
