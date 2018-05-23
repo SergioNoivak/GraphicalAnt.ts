@@ -1,11 +1,12 @@
 import { Aresta } from './Aresta';
+import { No } from './No';
 
 
 export class Formiga{
     
     private quantidadeDeFeromonioQueDeposita:number;
-    private arestasPassadas:Array<Aresta>;
-    private larguraDoCaminho: number;
+    private nosPassados:Array<No>;
+    private larguraDoCiclo: number;
     private elitista:boolean;
 
     constructor(quantidadeDeFeromonioQueDeposita?:number){
@@ -14,20 +15,31 @@ export class Formiga{
         
         else
             this.quantidadeDeFeromonioQueDeposita = 1;
-        this.larguraDoCaminho=0;
+        this.larguraDoCiclo=0;
         this.elitista = false;
+        this.nosPassados = new Array<No>();
     }
 
     public getLarguraCaminho():number {
-        return this.larguraDoCaminho;
+        return this.larguraDoCiclo;
     }
 
-    public adicionarArestaAoCaminho(primeiraAresta:Aresta,...listaDeArestas:Aresta[]):void{
-        this.arestasPassadas.push(primeiraAresta);
-        this.larguraDoCaminho+=primeiraAresta.getDistancia();
-        listaDeArestas.forEach(aresta => {
-            this.arestasPassadas.push(aresta);
-            this.larguraDoCaminho+= aresta.getDistancia()>0? aresta.getDistancia():0;
+    public passarPelasCidades(primeiroNo:No,...listaDeNos:No[]):void{
+        this.nosPassados.push(primeiroNo);
+        listaDeNos.forEach(no => {
+            this.nosPassados.push(no);
         });        
     }
+    public exibirCiclo(){
+
+        this.nosPassados.forEach(noDoCiclo => {
+            console.log(noDoCiclo.getNomeDeCidade());
+        });
+    }
+    public ultimoNoQuePassou():No{
+
+        return this.nosPassados[this.nosPassados.length-1];
+
+    }
+
 }

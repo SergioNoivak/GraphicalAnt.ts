@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var FormigaFactory_1 = require("./FormigaFactory");
 var Algoritmos = /** @class */ (function () {
     function Algoritmos() {
     }
@@ -41,20 +42,22 @@ var Algoritmos = /** @class */ (function () {
         var vetorDeCidades = grafo.getVetorDeNos();
         var numeroDeNaoMarcados = vetorDeCidades.length;
         var marcados = new Map();
-        var rotaFormiga = new Array();
         var LarguraDeCaminho = 0.0;
+        var formiga = FormigaFactory_1.FormigaFactory.buildFormiga(1);
+        if (!formiga)
+            return;
         var indiceDeCidadeInicial = this.escolherIndiceCidadeAleatoria(vetorDeCidades);
         var cidadeInicial = vetorDeCidades[indiceDeCidadeInicial];
-        rotaFormiga.push(cidadeInicial);
+        formiga.passarPelasCidades(cidadeInicial);
         marcados[cidadeInicial.getNomeDeCidade()] = true;
         var ultimaCidadeAdicionada;
         var cidadeAtual;
         var proximaAresta;
         while (numeroDeNaoMarcados != 1) {
-            ultimaCidadeAdicionada = rotaFormiga[rotaFormiga.length - 1];
+            ultimaCidadeAdicionada = formiga.ultimoNoQuePassou();
             cidadeAtual = ultimaCidadeAdicionada;
             proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
-            rotaFormiga.push(proximaAresta.getFim());
+            formiga.passarPelasCidades(proximaAresta.getFim());
             var nomeDeProximaCidade = proximaAresta.getFim().getNomeDeCidade();
             marcados[nomeDeProximaCidade] = true;
             numeroDeNaoMarcados--;
@@ -62,12 +65,10 @@ var Algoritmos = /** @class */ (function () {
         }
         marcados[cidadeInicial.getNomeDeCidade()] = undefined;
         proximaAresta = cidadeAtual.escolherProximaAresta(marcados);
-        rotaFormiga.push(proximaAresta.getFim());
+        formiga.passarPelasCidades(proximaAresta.getFim());
         numeroDeNaoMarcados--;
         LarguraDeCaminho += proximaAresta.getDistancia();
-        rotaFormiga.forEach(function (noDoCiclo) {
-            console.log(noDoCiclo.getNomeDeCidade());
-        });
+        formiga.exibirCiclo();
     };
     return Algoritmos;
 }());

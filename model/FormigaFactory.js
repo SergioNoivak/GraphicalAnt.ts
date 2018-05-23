@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var Formiga_1 = require("./Formiga");
 var FormigaFactory = /** @class */ (function () {
     function FormigaFactory() {
